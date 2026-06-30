@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head><title>Icon Generator</title></head>
+<body>
+<canvas id="c192" width="192" height="192"></canvas>
+<canvas id="c512" width="512" height="512"></canvas>
+<script>
+function drawIcon(canvas, size) {
+  const ctx = canvas.getContext('2d');
+  const r = size / 2;
+  // Background
+  ctx.fillStyle = '#1a1a1a';
+  ctx.beginPath();
+  ctx.roundRect(0, 0, size, size, size * 0.2);
+  ctx.fill();
+  // Card shape
+  const m = size * 0.12;
+  const cw = size - m * 2;
+  const ch = cw * (2700/2160);
+  const cy = (size - ch) / 2;
+  ctx.fillStyle = '#2a2a2a';
+  ctx.beginPath();
+  ctx.roundRect(m, cy, cw, ch, size * 0.04);
+  ctx.fill();
+  // Gradient bar at bottom
+  const grad = ctx.createLinearGradient(0, cy + ch * 0.5, 0, cy + ch);
+  grad.addColorStop(0, 'rgba(255,255,255,0)');
+  grad.addColorStop(1, 'rgba(255,255,255,0.15)');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.roundRect(m, cy, cw, ch, size * 0.04);
+  ctx.fill();
+  // Text lines
+  ctx.fillStyle = '#ffffff';
+  const lh = size * 0.06;
+  const lw = cw * 0.6;
+  const lx = m + cw * 0.1;
+  const ly = cy + ch * 0.72;
+  ctx.beginPath();
+  ctx.roundRect(lx, ly, lw, lh, lh/2);
+  ctx.fill();
+  ctx.globalAlpha = 0.6;
+  ctx.beginPath();
+  ctx.roundRect(lx, ly + lh * 1.6, lw * 0.75, lh, lh/2);
+  ctx.fill();
+}
+
+['c192','c512'].forEach(id => {
+  const c = document.getElementById(id);
+  drawIcon(c, c.width);
+  const a = document.createElement('a');
+  a.download = id === 'c192' ? 'icon-192.png' : 'icon-512.png';
+  a.href = c.toDataURL('image/png');
+  a.textContent = 'Download ' + a.download;
+  a.style.display = 'block';
+  document.body.appendChild(a);
+});
+</script>
+</body>
+</html>
