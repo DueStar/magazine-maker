@@ -44,6 +44,10 @@ const startSlider     = document.getElementById('grad-start');
 const startVal        = document.getElementById('grad-start-val');
 const endSlider       = document.getElementById('grad-end');
 const endVal          = document.getElementById('grad-end-val');
+const previewBtn      = document.getElementById('preview-btn');
+const previewModal    = document.getElementById('preview-modal');
+const modalCanvas     = document.getElementById('modal-canvas');
+const modalClose      = document.getElementById('modal-close');
 const shareBtn        = document.getElementById('share-btn');
 const downloadBtn     = document.getElementById('download-btn');
 const toast           = document.getElementById('toast');
@@ -227,6 +231,34 @@ function getFilename() {
   const pad = n => String(n).padStart(2, '0');
   return `card_${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}.png`;
 }
+
+// ── 미리보기 버튼 ─────────────────────────────────────
+previewBtn.addEventListener('click', () => {
+  const vw = window.innerWidth - 32;
+  const w  = Math.min(vw, 420);
+  const h  = Math.round(w * ASPECT);
+  modalCanvas.width  = w;
+  modalCanvas.height = h;
+  const mCtx = modalCanvas.getContext('2d');
+  document.fonts.ready.then(() => {
+    render(mCtx, w, h);
+    previewModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+function closeModal() {
+  previewModal.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+modalClose.addEventListener('click', closeModal);
+previewModal.addEventListener('click', e => {
+  if (e.target === previewModal) closeModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
 
 // ── 공유 버튼 ─────────────────────────────────────────
 shareBtn.addEventListener('click', async () => {
