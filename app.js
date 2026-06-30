@@ -117,7 +117,7 @@ function render(targetCtx, W, H) {
   targetCtx.save();
   targetCtx.font          = `700 ${fontSize}px 'Pretendard Variable', 'Pretendard', sans-serif`;
   targetCtx.fillStyle     = '#FFFFFF';
-  targetCtx.textBaseline  = 'alphabetic';
+  targetCtx.textBaseline  = 'bottom';
   targetCtx.textAlign     = 'left';
   targetCtx.letterSpacing = `${-5.4 * scale}px`;
   targetCtx.shadowColor   = 'rgba(0,0,0,0.48)';
