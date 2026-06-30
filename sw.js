@@ -1,4 +1,4 @@
-const CACHE_NAME = 'card-maker-v1';
+const CACHE_NAME = 'card-maker-v2';
 const FONT_CACHE = 'card-maker-fonts-v1';
 
 const APP_SHELL = [

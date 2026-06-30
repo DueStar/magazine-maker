@@ -240,11 +240,9 @@ previewBtn.addEventListener('click', () => {
   modalCanvas.width  = w;
   modalCanvas.height = h;
   const mCtx = modalCanvas.getContext('2d');
-  document.fonts.ready.then(() => {
-    render(mCtx, w, h);
-    previewModal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  });
+  render(mCtx, w, h);
+  previewModal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
 });
 
 function closeModal() {
